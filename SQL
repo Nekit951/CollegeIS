@@ -1,0 +1,111 @@
+CREATE DATABASE CollegeDB
+
+Create table Специальности
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Группа NVARCHAR(10),
+	КоличествоСтудентов INT
+)
+
+Create table Дисциплины
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table Корпуса
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Специальность NVARCHAR(50),
+	Адрес NVARCHAR(50)
+)
+
+Create table Отделы
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+)
+
+Create table Преподаватели
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ФИО NVARCHAR(50),
+	Должность NVARCHAR(50),
+	Возраст Int,
+	НачалоРаботы Datetime,
+	НомерТелефона NVARCHAR(50),
+	Email NVARCHAR(50)
+)
+
+Create table Группы
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Специальность NVARCHAR(50)
+)
+
+Create table Студенты
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ФИО NVARCHAR(50),
+	Специальность NVARCHAR(50),
+	Группа NVARCHAR(10),
+	Курс INT,
+	Возраст Int,
+	НомерТелефона NVARCHAR(50),
+	Email NVARCHAR(50),
+	ДатаПоступления Datetime
+)
+
+Create table РасписаниеЗанятий
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table Оценки
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table Сотрудники
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ФИО NVARCHAR(50),
+	Должность NVARCHAR(50),
+	Возраст Int,
+	НомерТелефона NVARCHAR(50),
+	Email NVARCHAR(50)
+)
+
+Create table Кабинеты
+(
+	Корпус NVARCHAR(50),
+	Номер INT,
+	Вместимость INT,
+	Назначение NVARCHAR(50),
+	Статус NVARCHAR(10)
+)
+
+Create table Общежития
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Адрес NVARCHAR(50),
+	КоличествоКомнат INT,
+	КоличествоЛюдей INT
+)
