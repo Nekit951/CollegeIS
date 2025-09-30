@@ -34,6 +34,8 @@ Create table Преподаватели
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
+    Логин NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Должность NVARCHAR(50),
 	Возраст Int,
 	НачалоРаботы Datetime,
@@ -55,6 +57,8 @@ Create table Студенты
 	Специальность NVARCHAR(50),
 	Группа NVARCHAR(10),
 	Курс INT,
+	Логин NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
@@ -83,11 +87,13 @@ Create table Оценки
 	ТипКонтроля NVARCHAR(50)
 )
 
-Create table Сотрудники
+Create table Работники
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
 	Должность NVARCHAR(50),
+	Логин NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50)
