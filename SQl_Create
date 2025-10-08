@@ -62,7 +62,7 @@ Create table Общежития
 	КоличествоЛюдей INT
 )
 
-Create table СтудентыИ-11
+Create table СтудентыИ11
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -70,14 +70,14 @@ Create table СтудентыИ-11
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-12
+Create table СтудентыИ12
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -85,14 +85,14 @@ Create table СтудентыИ-12
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-13
+Create table СтудентыИ13
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -100,14 +100,14 @@ Create table СтудентыИ-13
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-21
+Create table СтудентыИ21
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -115,14 +115,14 @@ Create table СтудентыИ-21
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-22
+Create table СтудентыИ22
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -130,14 +130,14 @@ Create table СтудентыИ-22
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-23
+Create table СтудентыИ23
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -145,14 +145,14 @@ Create table СтудентыИ-23
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-31
+Create table СтудентыИ31
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -160,14 +160,14 @@ Create table СтудентыИ-31
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-32
+Create table СтудентыИ32
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -175,14 +175,14 @@ Create table СтудентыИ-32
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-33
+Create table СтудентыИ33
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -190,14 +190,14 @@ Create table СтудентыИ-33
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыИ-11
+Create table СтудентыКС11
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -205,14 +205,14 @@ Create table СтудентыИ-11
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-11
+Create table СтудентыКС12
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -220,14 +220,14 @@ Create table СтудентыКС-11
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-12
+Create table СтудентыКС13
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -235,14 +235,14 @@ Create table СтудентыКС-12
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-13
+Create table СтудентыКС21
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -250,14 +250,14 @@ Create table СтудентыКС-13
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-21
+Create table СтудентыКС22
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -265,14 +265,14 @@ Create table СтудентыКС-21
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-22
+Create table СтудентыКС23
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -280,14 +280,14 @@ Create table СтудентыКС-22
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-23
+Create table СтудентыКС31
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -295,14 +295,14 @@ Create table СтудентыКС-23
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-31
+Create table СтудентыКС32
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -310,14 +310,14 @@ Create table СтудентыКС-31
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-32
+Create table СтудентыКС33
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -325,14 +325,14 @@ Create table СтудентыКС-32
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыКС-33
+Create table СтудентыП11
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -340,14 +340,14 @@ Create table СтудентыКС-33
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-11
+Create table СтудентыП12
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -355,14 +355,14 @@ Create table СтудентыП-11
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-12
+Create table СтудентыП13
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -370,14 +370,14 @@ Create table СтудентыП-12
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-13
+Create table СтудентыП21
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -385,14 +385,14 @@ Create table СтудентыП-13
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-21
+Create table СтудентыП22
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -400,14 +400,14 @@ Create table СтудентыП-21
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-22
+Create table СтудентыП23
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -415,14 +415,14 @@ Create table СтудентыП-22
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-23
+Create table СтудентыП31
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -430,14 +430,14 @@ Create table СтудентыП-23
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-31
+Create table СтудентыП32
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -445,14 +445,14 @@ Create table СтудентыП-31
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-32
+Create table СтудентыП33
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -460,14 +460,14 @@ Create table СтудентыП-32
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыП-33
+Create table СтудентыЭК11
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -475,14 +475,14 @@ Create table СтудентыП-33
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-11
+Create table СтудентыЭК12
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -490,14 +490,14 @@ Create table СтудентыЭК-11
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-12
+Create table СтудентыЭК13
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -505,14 +505,14 @@ Create table СтудентыЭК-12
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-13
+Create table СтудентыЭК21
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -520,14 +520,14 @@ Create table СтудентыЭК-13
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-21
+Create table СтудентыЭК22
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -535,14 +535,14 @@ Create table СтудентыЭК-21
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-22
+Create table СтудентыЭК23
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -550,14 +550,14 @@ Create table СтудентыЭК-22
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-23
+Create table СтудентыЭК31
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -565,14 +565,14 @@ Create table СтудентыЭК-23
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-31
+Create table СтудентыЭК32
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -580,14 +580,14 @@ Create table СтудентыЭК-31
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-32
+Create table СтудентыЭК33
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -595,14 +595,14 @@ Create table СтудентыЭК-32
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЭК-33
+Create table СтудентыЮ11
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -610,14 +610,14 @@ Create table СтудентыЭК-33
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-11
+Create table СтудентыЮ12
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -625,14 +625,14 @@ Create table СтудентыЮ-11
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-12
+Create table СтудентыЮ13
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -640,14 +640,14 @@ Create table СтудентыЮ-12
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-13
+Create table СтудентыЮ21
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -655,14 +655,14 @@ Create table СтудентыЮ-13
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-21
+Create table СтудентыЮ22
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -670,14 +670,14 @@ Create table СтудентыЮ-21
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-22
+Create table СтудентыЮ23
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -685,14 +685,14 @@ Create table СтудентыЮ-22
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-23
+Create table СтудентыЮ31
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -700,14 +700,14 @@ Create table СтудентыЮ-23
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-31
+Create table СтудентыЮ32
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -715,14 +715,14 @@ Create table СтудентыЮ-31
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
 
-Create table СтудентыЮ-32
+Create table СтудентыЮ33
 (
 	Id INT IDENTITY PRIMARY KEY,
 	ФИО NVARCHAR(50),
@@ -730,22 +730,7 @@ Create table СтудентыЮ-32
 	Группа NVARCHAR(10),
 	Курс INT,
 	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
-	Возраст Int,
-	НомерТелефона NVARCHAR(50),
-	Email NVARCHAR(50),
-	ДатаПоступления Datetime
-)
-
-Create table СтудентыЮ-33
-(
-	Id INT IDENTITY PRIMARY KEY,
-	ФИО NVARCHAR(50),
-	Специальность NVARCHAR(50),
-	Группа NVARCHAR(10),
-	Курс INT,
-	Логин NVARCHAR(10),
-    	Пароль NVARCHAR(10),
+    Пароль NVARCHAR(10),
 	Возраст Int,
 	НомерТелефона NVARCHAR(50),
 	Email NVARCHAR(50),
