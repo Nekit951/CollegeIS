@@ -736,3 +736,43 @@ Create table СтудентыЮ33
 	Email NVARCHAR(50),
 	ДатаПоступления Datetime
 )
+
+CREATE TABLE КабинетыГлавныйКорпус
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Вместимость INT,
+	Назначение NVARCHAR(50),
+	Статус NVARCHAR(10)
+)
+
+CREATE TABLE КабинетыКорпусА
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Вместимость INT,
+	Назначение NVARCHAR(50),
+	Статус NVARCHAR(10)
+)
+
+CREATE TABLE КабинетыКорпусБ
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Вместимость INT,
+	Назначение NVARCHAR(50),
+	Статус NVARCHAR(10)
+)
+
+CREATE TABLE КабинетыЭкономическийКорпус
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Вместимость INT,
+	Назначение NVARCHAR(50),
+	Статус NVARCHAR(10)
+)
+
+CREATE TABLE КабинетыЮридическийКорпус
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Вместимость INT,
+	Назначение NVARCHAR(50),
+	Статус NVARCHAR(10)
+)
