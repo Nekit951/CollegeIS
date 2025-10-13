@@ -1,0 +1,361 @@
+USE CollegeDB;
+
+Create table ДисциплиныИ11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныИ33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныКС33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныП33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЭК33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
+
+Create table ДисциплиныЮ33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	Название NVARCHAR(50),
+	Семестр Int,
+	КоличествоЧасов Int
+)
