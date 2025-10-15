@@ -1,0 +1,496 @@
+USE CollegeDB;
+
+Create table РасписаниеЗанятийИ11
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ12
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ13
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ21
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ22
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ23
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ31
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ32
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийИ33
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС11
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС12
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС13
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС21
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС22
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС23
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС31
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС32
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийКС33
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП11
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП12
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП13
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП21
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП22
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП23
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП31
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП32
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийП33
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК11
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК12
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК13
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК21
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК22
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК23
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК31
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК32
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЭК33
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ11
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ12
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ13
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ21
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ22
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ23
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ31
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ32
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
+
+Create table РасписаниеЗанятийЮ33
+(
+	Номер INT IDENTITY PRIMARY KEY,
+	Дисциплина NVARCHAR(50),
+	ТипЗанятия NVARCHAR(10),
+	Группа NVARCHAR(10),
+	Преподаватель NVARCHAR(50),
+	Кабинет NVARCHAR(10),
+	Время Datetime
+)
