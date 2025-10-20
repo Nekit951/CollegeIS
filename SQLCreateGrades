@@ -1,0 +1,496 @@
+USE CollegeDB;
+
+Create table ОценкиИ11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиИ33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКС33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиП33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиКЭ32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЭК33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ11
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ12
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ13
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ21
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ22
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ23
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ31
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ32
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
+
+Create table ОценкиЮ33
+(
+	Id INT IDENTITY PRIMARY KEY,
+	ИмяСтудента NVARCHAR(50),
+	Дисциплина NVARCHAR(50),
+	Преподаватель NVARCHAR(50),
+	Оценка NVARCHAR(50),
+	Дата Datetime,
+	ТипКонтроля NVARCHAR(50)
+)
