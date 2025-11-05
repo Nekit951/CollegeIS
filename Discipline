@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace CollegeIS
+{
+    public partial class DisciplineI11: Form
+    {
+        public EconomKorpus()
+        {
+            InitializeComponent();
+
+            DataTable disciplineI11table = new DataTable();
+
+            string connectionString = "Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM dbo.ДисциплиныИ11", connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(disciplineI11table);
+            }
+
+            dataGridView1.DataSource = disciplineI11table;
+        }
+    }
+}
