@@ -13,22 +13,30 @@ namespace CollegeIS
 {
     public partial class DisciplineI11: Form
     {
-        public EconomKorpus()
+        private string connectionString = "Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True";
+        public DisciplineI11()
         {
             InitializeComponent();
+            LoadSemestersData();
+        }
 
-            DataTable disciplineI11table = new DataTable();
+        private void LoadSemestersData()
+        {
+            LoadSemesterData(tabPage1, dataGridView1, 1);
+            LoadSemesterData(tabPage2, dataGridView2, 2);
+        }
 
-            string connectionString = "Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True";
+        private void LoadSemesterData(TabPage tabPage, DataGridView dgv, int semester)
+        {
+            string query = $"SELECT * FROM dbo.ДисциплиныИ11 WHERE Семестр = {semester}";
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM dbo.ДисциплиныИ11", connection);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(disciplineI11table);
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dgv.DataSource = dt;
             }
-
-            dataGridView1.DataSource = disciplineI11table;
         }
     }
 }
