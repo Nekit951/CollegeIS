@@ -28,7 +28,7 @@ namespace CollegeIS
 
         private void LoadSemesterData(TabPage tabPage, DataGridView dgv, int semester)
         {
-            string query = $"SELECT * FROM dbo.ДисциплиныИ11 WHERE Семестр = {semester}";
+            string query = $"SELECT * FROM dbo.ДисциплиныКС11 WHERE Семестр = {semester}";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
