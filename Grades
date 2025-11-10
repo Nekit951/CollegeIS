@@ -17,18 +17,18 @@ namespace CollegeIS
         {
             InitializeComponent();
 
-            DataTable gradesI11Table = new DataTable();
+            DataTable gradesKS11Table = new DataTable();
 
             string connectionString = "Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM dbo.ОценкиИ11", connection);
+                SqlCommand command = new SqlCommand("SELECT * FROM dbo.ОценкиКС11", connection);
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(gradesI11Table);
+                adapter.Fill(gradesKS11Table);
             }
 
-            dataGridView1.DataSource = gradesI11Table;
+            dataGridView1.DataSource = gradesKS11Table;
         }
     }
 }
