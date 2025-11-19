@@ -1,0 +1,518 @@
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CollegeIS
+{
+    public partial class KorpusCabinetForm : Form
+    {
+        private KorpusViewForm.KorpusInfo korpusInfo;
+        private DataGridView dataGridView;
+        private TextBox searchBox;
+        private Button btnExport;
+        private Button btnClose;
+        private Label titleLabel;
+        private Button btnResetFilters;
+        private Label statusLabel;
+        private ComboBox cmbStatusFilter;
+        private ComboBox cmbAppointmentFilter;
+
+        public class Cabinet
+        {
+            public int Number { get; set; }
+            public int Capacity { get; set; }
+            public string Appointment { get; set; }
+            public string Status { get; set; }
+        }
+
+        public KorpusCabinetForm(KorpusViewForm.KorpusInfo korpusInfo)
+        {
+            if (korpusInfo == null)
+                throw new ArgumentException("Информация о корпусе не может быть пустой");
+
+            this.korpusInfo = korpusInfo;
+            InitializeForm();
+        }
+
+        private void InitializeForm()
+        {
+            // Базовая настройка формы
+            this.Text = $"Кабинеты: {korpusInfo.Name}";
+            this.Size = new Size(1000, 600);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.FromArgb(240, 245, 249);
+            this.MinimumSize = new Size(800, 500);
+            this.Padding = new Padding(10);
+
+            CreateControls();
+            SetupLayout();
+            LoadCabinetData();
+        }
+
+        private void CreateControls()
+        {
+            // Заголовок
+            titleLabel = new Label
+            {
+                Text = $"Кабинеты корпуса: {korpusInfo.Name}\nСпециальность: {korpusInfo.Specialization}\nАдрес: {korpusInfo.Address}",
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                AutoSize = false,
+                Size = new Size(800, 60),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            // Поле поиска
+            searchBox = new TextBox
+            {
+                Text = "Поиск по назначению...",
+                Size = new Size(200, 25),
+                Font = new Font("Segoe UI", 9F),
+                BackColor = Color.White,
+                ForeColor = Color.Gray
+            };
+
+            searchBox.Enter += (s, e) =>
+            {
+                if (searchBox.Text == "Поиск по назначению...")
+                {
+                    searchBox.Text = "";
+                    searchBox.ForeColor = Color.FromArgb(51, 51, 51);
+                }
+            };
+
+            searchBox.Leave += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(searchBox.Text))
+                {
+                    searchBox.Text = "Поиск по назначению...";
+                    searchBox.ForeColor = Color.Gray;
+                }
+            };
+
+            searchBox.TextChanged += (s, e) => ApplyFilters();
+
+            // Фильтр по статусу
+            cmbStatusFilter = new ComboBox
+            {
+                Size = new Size(120, 25),
+                Font = new Font("Segoe UI", 9F),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            cmbStatusFilter.SelectedIndexChanged += (s, e) => ApplyFilters();
+
+            // Фильтр по назначению
+            cmbAppointmentFilter = new ComboBox
+            {
+                Size = new Size(150, 25),
+                Font = new Font("Segoe UI", 9F),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            cmbAppointmentFilter.SelectedIndexChanged += (s, e) => ApplyFilters();
+
+            // Кнопка сброса фильтров
+            btnResetFilters = new Button
+            {
+                Text = "Сбросить",
+                Size = new Size(80, 25),
+                BackColor = Color.FromArgb(220, 220, 220),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F),
+                Cursor = Cursors.Hand
+            };
+            btnResetFilters.Click += (s, e) =>
+            {
+                searchBox.Text = "Поиск по назначению...";
+                searchBox.ForeColor = Color.Gray;
+                cmbStatusFilter.SelectedIndex = -1;
+                cmbAppointmentFilter.SelectedIndex = -1;
+                ApplyFilters();
+            };
+
+            // DataGridView
+            dataGridView = new DataGridView
+            {
+                BackgroundColor = Color.White,
+                BorderStyle = BorderStyle.None,
+                ReadOnly = true,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                RowHeadersVisible = false,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                Font = new Font("Segoe UI", 9F),
+                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(250, 250, 250)
+                },
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Padding = new Padding(5),
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
+                },
+                ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(70, 130, 180),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                }
+            };
+
+            // Настраиваем столбцы
+            dataGridView.Columns.Add("Number", "Номер");
+            dataGridView.Columns.Add("Capacity", "Вместимость");
+            dataGridView.Columns.Add("Appointment", "Назначение");
+            dataGridView.Columns.Add("Status", "Статус");
+
+            // Настраиваем ширину столбцов
+            dataGridView.Columns["Number"].Width = 80;
+            dataGridView.Columns["Capacity"].Width = 100;
+            dataGridView.Columns["Appointment"].Width = 200;
+            dataGridView.Columns["Status"].Width = 100;
+
+            // Статус
+            statusLabel = new Label
+            {
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(100, 100, 100),
+                AutoSize = true,
+                Text = "Загрузка данных..."
+            };
+
+            // Кнопка экспорта
+            btnExport = new Button
+            {
+                Text = "Экспорт CSV",
+                Size = new Size(100, 30),
+                BackColor = Color.FromArgb(46, 204, 113),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F),
+                Cursor = Cursors.Hand
+            };
+            btnExport.Click += ExportToCsv;
+
+            // Кнопка закрытия
+            btnClose = new Button
+            {
+                Text = "Закрыть",
+                Size = new Size(80, 30),
+                BackColor = Color.FromArgb(231, 76, 60),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F),
+                Cursor = Cursors.Hand
+            };
+            btnClose.Click += (s, e) => this.Close();
+        }
+
+        private void SetupLayout()
+        {
+            // Используем TableLayout для надежного размещения
+            TableLayoutPanel mainLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount = 4,
+                Padding = new Padding(0),
+                Margin = new Padding(0)
+            };
+
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            // Панель заголовка
+            Panel headerPanel = new Panel
+            {
+                Height = 70,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+            headerPanel.Controls.Add(titleLabel);
+            titleLabel.Location = new Point(0, 10);
+
+            // Панель фильтров
+            Panel filterPanel = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+
+            searchBox.Location = new Point(0, 8);
+
+            // Добавляем подписи и фильтры
+            Label lblStatus = new Label
+            {
+                Text = "Статус:",
+                Location = new Point(searchBox.Right + 10, 10),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8F)
+            };
+
+            cmbStatusFilter.Location = new Point(lblStatus.Right + 5, 8);
+
+            Label lblAppointment = new Label
+            {
+                Text = "Назначение:",
+                Location = new Point(cmbStatusFilter.Right + 10, 10),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8F)
+            };
+
+            cmbAppointmentFilter.Location = new Point(lblAppointment.Right + 5, 8);
+            btnResetFilters.Location = new Point(cmbAppointmentFilter.Right + 10, 8);
+
+            filterPanel.Controls.AddRange(new Control[] {
+                searchBox,
+                lblStatus, cmbStatusFilter,
+                lblAppointment, cmbAppointmentFilter,
+                btnResetFilters
+            });
+
+            // DataGridView
+            dataGridView.Dock = DockStyle.Fill;
+
+            // Панель статуса и кнопок
+            Panel footerPanel = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+
+            statusLabel.Location = new Point(0, 12);
+            btnExport.Location = new Point(footerPanel.Width - 180, 5);
+            btnClose.Location = new Point(footerPanel.Width - 90, 5);
+
+            footerPanel.Controls.AddRange(new Control[] { statusLabel, btnExport, btnClose });
+
+            // Добавляем все на главную панель
+            mainLayout.Controls.Add(headerPanel, 0, 0);
+            mainLayout.Controls.Add(filterPanel, 0, 1);
+            mainLayout.Controls.Add(dataGridView, 0, 2);
+            mainLayout.Controls.Add(footerPanel, 0, 3);
+
+            this.Controls.Add(mainLayout);
+        }
+
+        private void LoadCabinetData()
+        {
+            try
+            {
+                List<Cabinet> cabinets = GetCabinetsFromDatabase();
+
+                dataGridView.Rows.Clear();
+
+                if (cabinets.Count == 0)
+                {
+                    statusLabel.Text = "В базе данных нет кабинетов для этого корпуса";
+                    return;
+                }
+
+                statusLabel.Text = $"Загружено кабинетов: {cabinets.Count}";
+
+                // Заполняем таблицу
+                foreach (Cabinet cabinet in cabinets)
+                {
+                    dataGridView.Rows.Add(
+                        cabinet.Number,
+                        cabinet.Capacity,
+                        cabinet.Appointment,
+                        cabinet.Status
+                    );
+                }
+
+                // Заполняем фильтры
+                FillFilters(cabinets);
+            }
+            catch (Exception ex)
+            {
+                statusLabel.Text = $"Ошибка загрузки данных: {ex.Message}";
+            }
+        }
+
+        private void FillFilters(List<Cabinet> cabinets)
+        {
+            // Заполняем фильтр статусов
+            var statuses = cabinets.Select(c => c.Status).Distinct().OrderBy(s => s).ToList();
+            cmbStatusFilter.Items.Clear();
+            cmbStatusFilter.Items.Add("Все статусы");
+            foreach (var status in statuses)
+            {
+                cmbStatusFilter.Items.Add(status);
+            }
+
+            // Заполняем фильтр назначений
+            var appointments = cabinets.Select(c => c.Appointment).Distinct().OrderBy(a => a).ToList();
+            cmbAppointmentFilter.Items.Clear();
+            cmbAppointmentFilter.Items.Add("Все назначения");
+            foreach (var appointment in appointments)
+            {
+                cmbAppointmentFilter.Items.Add(appointment);
+            }
+        }
+
+        private List<Cabinet> GetCabinetsFromDatabase()
+        {
+            List<Cabinet> cabinets = new List<Cabinet>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection("Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True"))
+                {
+                    connection.Open();
+
+                    // Определяем таблицу по названию корпуса
+                    string tableName = GetTableNameByKorpus(korpusInfo.Name);
+
+                    string query = $@"
+                        SELECT 
+                            Номер,
+                            Вместимость,
+                            ISNULL(Назначение, 'Не указано') as Назначение,
+                            ISNULL(Статус, 'Не указан') as Статус
+                        FROM {tableName} 
+                        ORDER BY Номер";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Cabinet cabinet = new Cabinet
+                            {
+                                Number = Convert.ToInt32(reader["Номер"]),
+                                Capacity = Convert.ToInt32(reader["Вместимость"]),
+                                Appointment = reader["Назначение"].ToString().Trim(),
+                                Status = reader["Статус"].ToString().Trim()
+                            };
+
+                            cabinets.Add(cabinet);
+                        }
+                    }
+                }
+
+                return cabinets;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при загрузке кабинетов: {ex.Message}");
+            }
+        }
+
+        private string GetTableNameByKorpus(string korpusName)
+        {
+            // Определяем таблицу по названию корпуса
+            switch (korpusName)
+            {
+                case "Главный корпус":
+                    return "КабинетыГлавныйКорпус";
+                case "Корпус А":
+                    return "КабинетыКорпусА";
+                case "Корпус Б":
+                    return "КабинетыКорпусБ";
+                case "Экономический корпус":
+                    return "КабинетыЭкономическийКорпус";
+                case "Юридический корпус":
+                    return "КабинетыЮридическийКорпус";
+                default:
+                    throw new Exception($"Неизвестный корпус: {korpusName}");
+            }
+        }
+
+        private void ApplyFilters()
+        {
+            string searchText = searchBox.Text.ToLower();
+            string selectedStatus = cmbStatusFilter.SelectedItem?.ToString();
+            string selectedAppointment = cmbAppointmentFilter.SelectedItem?.ToString();
+
+            int visibleCount = 0;
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool visible = true;
+
+                // Фильтр по поиску
+                if (!string.IsNullOrEmpty(searchText) && searchText != "поиск по назначению...")
+                {
+                    visible = row.Cells["Appointment"].Value?.ToString().ToLower().Contains(searchText) == true;
+                }
+
+                // Фильтр по статусу
+                if (visible && selectedStatus != null && selectedStatus != "Все статусы")
+                {
+                    visible = row.Cells["Status"].Value?.ToString() == selectedStatus;
+                }
+
+                // Фильтр по назначению
+                if (visible && selectedAppointment != null && selectedAppointment != "Все назначения")
+                {
+                    visible = row.Cells["Appointment"].Value?.ToString() == selectedAppointment;
+                }
+
+                row.Visible = visible;
+                if (visible) visibleCount++;
+            }
+
+            statusLabel.Text = $"Показано: {visibleCount} из {dataGridView.Rows.Count} кабинетов";
+        }
+
+        private void ExportToCsv(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "CSV files (*.csv)|*.csv";
+                    saveDialog.FileName = $"Кабинеты_{korpusInfo.Name}_{DateTime.Now:yyyyMMdd}.csv";
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (System.IO.StreamWriter writer = new System.IO.StreamWriter(saveDialog.FileName, false, System.Text.Encoding.UTF8))
+                        {
+                            writer.WriteLine("Номер;Вместимость;Назначение;Статус");
+
+                            foreach (DataGridViewRow row in dataGridView.Rows)
+                            {
+                                if (!row.IsNewRow && row.Visible)
+                                {
+                                    writer.WriteLine(
+                                        $"{EscapeCsv(row.Cells["Number"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["Capacity"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["Appointment"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["Status"].Value?.ToString())}"
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при экспорте: {ex.Message}", "Ошибка",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string EscapeCsv(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return "";
+            if (value.Contains(";") || value.Contains("\"") || value.Contains("\n"))
+            {
+                return $"\"{value.Replace("\"", "\"\"")}\"";
+            }
+            return value;
+        }
+    }
+}
