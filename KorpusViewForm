@@ -1,0 +1,317 @@
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CollegeIS
+{
+    public partial class KorpusViewForm : Form
+    {
+        private FlowLayoutPanel flowPanel;
+        private string connectionString = "Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True";
+        private Label statusLabel;
+        private TextBox searchBox;
+        private List<KorpusInfo> allKorpuses = new List<KorpusInfo>();
+        private Button btnRefresh;
+
+        public class KorpusInfo
+        {
+            public string Name { get; set; }
+            public string Specialization { get; set; }
+            public string Address { get; set; }
+        }
+
+        public KorpusViewForm()
+        {
+            InitializeCustomComponents();
+            LoadKorpusesFromDatabase();
+        }
+
+        private void InitializeCustomComponents()
+        {
+            this.SuspendLayout();
+
+            // Настройка формы
+            this.Text = "Корпуса колледжа";
+            this.Size = new Size(900, 600);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.FromArgb(240, 245, 249);
+
+            // Поле поиска
+            searchBox = new TextBox
+            {
+                Text = "Поиск корпуса...",
+                Size = new Size(300, 25),
+                Location = new Point(20, 15),
+                Font = new Font("Segoe UI", 9F),
+                BackColor = Color.White,
+                ForeColor = Color.Gray
+            };
+
+            searchBox.Enter += (s, e) =>
+            {
+                if (searchBox.Text == "Поиск корпуса...")
+                {
+                    searchBox.Text = "";
+                    searchBox.ForeColor = Color.FromArgb(51, 51, 51);
+                }
+            };
+
+            searchBox.Leave += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(searchBox.Text))
+                {
+                    searchBox.Text = "Поиск корпуса...";
+                    searchBox.ForeColor = Color.Gray;
+                }
+            };
+
+            searchBox.TextChanged += SearchBox_TextChanged;
+
+            // Статус бар
+            statusLabel = new Label
+            {
+                Text = "Загрузка корпусов...",
+                Size = new Size(400, 25),
+                Location = new Point(330, 15),
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(100, 100, 100),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            // Кнопка обновления
+            btnRefresh = new Button
+            {
+                Text = "Обновить",
+                Size = new Size(80, 25),
+                Location = new Point(750, 15),
+                BackColor = Color.FromArgb(52, 152, 219),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 8F),
+                Cursor = Cursors.Hand
+            };
+            btnRefresh.Click += (s, e) => LoadKorpusesFromDatabase();
+
+            // Кнопка сброса поиска
+            Button btnClearSearch = new Button
+            {
+                Text = "Сброс",
+                Size = new Size(60, 25),
+                Location = new Point(840, 15),
+                BackColor = Color.FromArgb(220, 220, 220),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 8F),
+                Cursor = Cursors.Hand
+            };
+            btnClearSearch.Click += (s, e) =>
+            {
+                searchBox.Text = "Поиск корпуса...";
+                searchBox.ForeColor = Color.Gray;
+                ApplySearchFilter();
+            };
+
+            // Создание FlowLayoutPanel
+            flowPanel = new FlowLayoutPanel
+            {
+                Location = new Point(0, 50),
+                Size = new Size(900, 550),
+                AutoScroll = true,
+                Padding = new Padding(25),
+                BackColor = Color.Transparent
+            };
+
+            this.Controls.Add(searchBox);
+            this.Controls.Add(statusLabel);
+            this.Controls.Add(btnRefresh);
+            this.Controls.Add(btnClearSearch);
+            this.Controls.Add(flowPanel);
+            this.ResumeLayout(false);
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            ApplySearchFilter();
+        }
+
+        private void ApplySearchFilter()
+        {
+            if (allKorpuses.Count == 0) return;
+
+            string searchText = searchBox.Text.Trim().ToLower();
+
+            // Если поле поиска пустое или содержит placeholder, показываем все корпуса
+            if (string.IsNullOrEmpty(searchText) || searchText == "поиск корпуса...")
+            {
+                DisplayKorpuses(allKorpuses);
+                statusLabel.Text = $"Все корпуса: {allKorpuses.Count}";
+                return;
+            }
+
+            // Фильтруем корпуса по поисковому запросу
+            var filteredKorpuses = allKorpuses
+                .Where(korpus =>
+                    korpus.Name.ToLower().Contains(searchText) ||
+                    korpus.Specialization.ToLower().Contains(searchText) ||
+                    korpus.Address.ToLower().Contains(searchText))
+                .ToList();
+
+            DisplayKorpuses(filteredKorpuses);
+            statusLabel.Text = $"Найдено: {filteredKorpuses.Count} из {allKorpuses.Count}";
+        }
+
+        private void DisplayKorpuses(List<KorpusInfo> korpuses)
+        {
+            flowPanel.SuspendLayout();
+            flowPanel.Controls.Clear();
+
+            if (korpuses.Count == 0)
+            {
+                // Сообщение, если ничего не найдено
+                Label noResultsLabel = new Label
+                {
+                    Text = "Корпуса не найдены\nПопробуйте изменить запрос поиска",
+                    Font = new Font("Segoe UI", 11F, FontStyle.Regular),
+                    ForeColor = Color.FromArgb(150, 150, 150),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    AutoSize = false,
+                    Size = new Size(800, 60),
+                    Margin = new Padding(10)
+                };
+                flowPanel.Controls.Add(noResultsLabel);
+            }
+            else
+            {
+                foreach (KorpusInfo korpus in korpuses)
+                {
+                    Button korpusButton = CreateKorpusButton(korpus);
+                    flowPanel.Controls.Add(korpusButton);
+                }
+            }
+
+            flowPanel.ResumeLayout();
+        }
+
+        private void LoadKorpusesFromDatabase()
+        {
+            try
+            {
+                statusLabel.Text = "Загрузка корпусов из базы данных...";
+                searchBox.Text = "Поиск корпуса...";
+                searchBox.ForeColor = Color.Gray;
+
+                allKorpuses = GetKorpusesFromDatabase();
+
+                if (allKorpuses.Count == 0)
+                {
+                    statusLabel.Text = "В базе данных нет корпусов";
+                    return;
+                }
+
+                ApplySearchFilter(); // Показываем все корпуса
+                statusLabel.Text = $"Загружено корпусов: {allKorpuses.Count}";
+            }
+            catch (Exception ex)
+            {
+                statusLabel.Text = $"Ошибка загрузки: {ex.Message}";
+            }
+        }
+
+        private List<KorpusInfo> GetKorpusesFromDatabase()
+        {
+            List<KorpusInfo> korpuses = new List<KorpusInfo>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                        SELECT 
+                            Название,
+                            Специальность,
+                            Адрес
+                        FROM Корпуса 
+                        ORDER BY Название";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            KorpusInfo korpus = new KorpusInfo
+                            {
+                                Name = reader["Название"].ToString().Trim(),
+                                Specialization = reader["Специальность"].ToString().Trim(),
+                                Address = reader["Адрес"].ToString().Trim()
+                            };
+
+                            if (!string.IsNullOrEmpty(korpus.Name))
+                            {
+                                korpuses.Add(korpus);
+                            }
+                        }
+                    }
+                }
+
+                return korpuses;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при загрузке корпусов: {ex.Message}");
+            }
+        }
+
+        private Button CreateKorpusButton(KorpusInfo korpus)
+        {
+            var button = new Button
+            {
+                Text = $"{korpus.Name}\n{korpus.Specialization}",
+                Size = new Size(250, 80),
+                Margin = new Padding(15),
+                Tag = korpus,
+                BackColor = Color.FromArgb(52, 152, 219),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Cursor = Cursors.Hand,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            button.FlatAppearance.BorderSize = 0;
+            button.FlatAppearance.MouseOverBackColor = Color.FromArgb(41, 128, 185);
+            button.FlatAppearance.MouseDownBackColor = Color.FromArgb(32, 102, 148);
+
+            button.Click += (s, e) => {
+                // Сбрасываем цвет всех кнопок
+                foreach (Control control in flowPanel.Controls)
+                {
+                    if (control is Button btn)
+                    {
+                        btn.BackColor = Color.FromArgb(52, 152, 219);
+                    }
+                }
+                // Выделяем активную кнопку
+                button.BackColor = Color.FromArgb(231, 76, 60);
+
+                // Показываем статус загрузки
+                statusLabel.Text = $"Загрузка информации о корпусе {korpus.Name}...";
+
+                // Открываем форму с кабинетами корпуса
+                KorpusCabinetForm korpusForm = new KorpusCabinetForm(korpus);
+                korpusForm.Show();
+            };
+
+            // Добавляем ToolTip для отображения адреса
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(button, $"Адрес: {korpus.Address}");
+
+            return button;
+        }
+    }
+}
