@@ -1,0 +1,448 @@
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CollegeIS
+{
+    public partial class RaspisanieStudents : Form
+    {
+        private FlowLayoutPanel flowPanel;
+        private string connectionString = "Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True";
+        private Label statusLabel;
+        private TextBox searchBox;
+        private List<string> allGroups = new List<string>();
+        private Button btnRefresh;
+
+        public RaspisanieStudents()
+        {
+            InitializeCustomComponents();
+            LoadGroupsFromDatabase();
+        }
+
+        private void InitializeCustomComponents()
+        {
+            this.SuspendLayout();
+
+            // Настройка формы
+            this.Text = "Выбор группы";
+            this.Size = new Size(900, 600);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.FromArgb(240, 245, 249);
+
+            // Поле поиска
+            searchBox = new TextBox
+            {
+                Text = "Поиск группы...",
+                Size = new Size(300, 25),
+                Location = new Point(20, 15),
+                Font = new Font("Segoe UI", 9F),
+                BackColor = Color.White,
+                ForeColor = Color.Gray
+            };
+
+            searchBox.Enter += (s, e) =>
+            {
+                if (searchBox.Text == "Поиск группы...")
+                {
+                    searchBox.Text = "";
+                    searchBox.ForeColor = Color.FromArgb(51, 51, 51);
+                }
+            };
+
+            searchBox.Leave += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(searchBox.Text))
+                {
+                    searchBox.Text = "Поиск группы...";
+                    searchBox.ForeColor = Color.Gray;
+                }
+            };
+
+            searchBox.TextChanged += SearchBox_TextChanged;
+
+            // Статус бар
+            statusLabel = new Label
+            {
+                Text = "Загрузка групп...",
+                Size = new Size(400, 25),
+                Location = new Point(330, 15),
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(100, 100, 100),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            // Кнопка обновления
+            btnRefresh = new Button
+            {
+                Text = "Обновить",
+                Size = new Size(80, 25),
+                Location = new Point(750, 15),
+                BackColor = Color.FromArgb(52, 152, 219),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 8F),
+                Cursor = Cursors.Hand
+            };
+            btnRefresh.Click += (s, e) => LoadGroupsFromDatabase();
+
+            // Кнопка сброса поиска
+            Button btnClearSearch = new Button
+            {
+                Text = "Сброс",
+                Size = new Size(60, 25),
+                Location = new Point(840, 15),
+                BackColor = Color.FromArgb(220, 220, 220),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 8F),
+                Cursor = Cursors.Hand
+            };
+            btnClearSearch.Click += (s, e) =>
+            {
+                searchBox.Text = "Поиск группы...";
+                searchBox.ForeColor = Color.Gray;
+                ApplySearchFilter();
+            };
+
+            // Создание FlowLayoutPanel
+            flowPanel = new FlowLayoutPanel
+            {
+                Location = new Point(0, 50),
+                Size = new Size(900, 550),
+                AutoScroll = true,
+                Padding = new Padding(25),
+                BackColor = Color.Transparent
+            };
+
+            this.Controls.Add(searchBox);
+            this.Controls.Add(statusLabel);
+            this.Controls.Add(btnRefresh);
+            this.Controls.Add(btnClearSearch);
+            this.Controls.Add(flowPanel);
+            this.ResumeLayout(false);
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            ApplySearchFilter();
+        }
+
+        private void ApplySearchFilter()
+        {
+            if (allGroups.Count == 0) return;
+
+            string searchText = searchBox.Text.Trim().ToLower();
+
+            // Если поле поиска пустое или содержит placeholder, показываем все группы
+            if (string.IsNullOrEmpty(searchText) || searchText == "поиск группы...")
+            {
+                DisplayGroups(allGroups);
+                statusLabel.Text = $"Все группы: {allGroups.Count}";
+                return;
+            }
+
+            // Фильтруем группы по поисковому запросу
+            var filteredGroups = allGroups
+                .Where(group => group.ToLower().Contains(searchText))
+                .ToList();
+
+            DisplayGroups(filteredGroups);
+            statusLabel.Text = $"Найдено: {filteredGroups.Count} из {allGroups.Count}";
+        }
+
+        private void DisplayGroups(List<string> groups)
+        {
+            flowPanel.SuspendLayout();
+            flowPanel.Controls.Clear();
+
+            if (groups.Count == 0)
+            {
+                // Сообщение, если ничего не найдено
+                Label noResultsLabel = new Label
+                {
+                    Text = "Группы не найдены\nПопробуйте изменить запрос поиска",
+                    Font = new Font("Segoe UI", 11F, FontStyle.Regular),
+                    ForeColor = Color.FromArgb(150, 150, 150),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    AutoSize = false,
+                    Size = new Size(800, 60),
+                    Margin = new Padding(10)
+                };
+                flowPanel.Controls.Add(noResultsLabel);
+            }
+            else
+            {
+                foreach (string group in groups)
+                {
+                    Button groupButton = CreateGroupButton(group);
+                    flowPanel.Controls.Add(groupButton);
+                }
+            }
+
+            flowPanel.ResumeLayout();
+        }
+
+        private void LoadGroupsFromDatabase()
+        {
+            try
+            {
+                statusLabel.Text = "Загрузка групп из базы данных...";
+                searchBox.Text = "Поиск группы...";
+                searchBox.ForeColor = Color.Gray;
+
+                allGroups = GetGroupsFromDatabase();
+
+                if (allGroups.Count == 0)
+                {
+                    // Если нет групп в базе, показываем тестовые
+                    LoadTestGroups();
+                    statusLabel.Text = "В базе нет групп. Показаны тестовые данные.";
+                    return;
+                }
+
+                ApplySearchFilter(); // Показываем все группы
+                statusLabel.Text = $"Загружено групп: {allGroups.Count}";
+            }
+            catch (Exception ex)
+            {
+                statusLabel.Text = "Ошибка загрузки. Показаны тестовые данные.";
+                LoadTestGroups();
+            }
+        }
+
+        private List<string> GetGroupsFromDatabase()
+        {
+            List<string> groups = new List<string>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Все таблицы расписания для поиска групп
+                    string[] scheduleTables = {
+                        "РасписаниеЗанятийИ11", "РасписаниеЗанятийИ12", "РасписаниеЗанятийИ13",
+                        "РасписаниеЗанятийИ21", "РасписаниеЗанятийИ22", "РасписаниеЗанятийИ23",
+                        "РасписаниеЗанятийИ31", "РасписаниеЗанятийИ32", "РасписаниеЗанятийИ33",
+                        "РасписаниеЗанятийКС11", "РасписаниеЗанятийКС12", "РасписаниеЗанятийКС13",
+                        "РасписаниеЗанятийКС21", "РасписаниеЗанятийКС22", "РасписаниеЗанятийКС23",
+                        "РасписаниеЗанятийКС31", "РасписаниеЗанятийКС32", "РасписаниеЗанятийКС33",
+                        "РасписаниеЗанятийП11", "РасписаниеЗанятийП12", "РасписаниеЗанятийП13",
+                        "РасписаниеЗанятийП21", "РасписаниеЗанятийП22", "РасписаниеЗанятийП23",
+                        "РасписаниеЗанятийП31", "РасписаниеЗанятийП32", "РасписаниеЗанятийП33",
+                        "РасписаниеЗанятийЭК11", "РасписаниеЗанятийЭК12", "РасписаниеЗанятийЭК13",
+                        "РасписаниеЗанятийЭК21", "РасписаниеЗанятийЭК22", "РасписаниеЗанятийЭК23",
+                        "РасписаниеЗанятийЭК31", "РасписаниеЗанятийЭК32", "РасписаниеЗанятийЭК33",
+                        "РасписаниеЗанятийЮ11", "РасписаниеЗанятийЮ12", "РасписаниеЗанятийЮ13",
+                        "РасписаниеЗанятийЮ21", "РасписаниеЗанятийЮ22", "РасписаниеЗанятийЮ23",
+                        "РасписаниеЗанятийЮ31", "РасписаниеЗанятийЮ32", "РасписаниеЗанятийЮ33"
+                    };
+
+                    foreach (string tableName in scheduleTables)
+                    {
+                        try
+                        {
+                            string query = $@"
+                                SELECT DISTINCT Группа 
+                                FROM {tableName}
+                                WHERE Группа IS NOT NULL 
+                                AND LTRIM(RTRIM(Группа)) != ''";
+
+                            using (SqlCommand command = new SqlCommand(query, connection))
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    string group = reader["Группа"].ToString().Trim();
+                                    if (!string.IsNullOrEmpty(group) && !groups.Contains(group))
+                                    {
+                                        groups.Add(group);
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            continue; // Пропускаем таблицы с ошибками
+                        }
+                    }
+                }
+
+                groups.Sort();
+                return groups;
+            }
+            catch
+            {
+                return new List<string>();
+            }
+        }
+
+        private void LoadTestGroups()
+        {
+            // Тестовые группы (все возможные группы из ваших таблиц)
+            string[] testGroups = {
+                "И-11", "И-12", "И-13", "И-21", "И-22", "И-23", "И-31", "И-32", "И-33",
+                "КС-11", "КС-12", "КС-13", "КС-21", "КС-22", "КС-23", "КС-31", "КС-32", "КС-33",
+                "П-11", "П-12", "П-13", "П-21", "П-22", "П-23", "П-31", "П-32", "П-33",
+                "ЭК-11", "ЭК-12", "ЭК-13", "ЭК-21", "ЭК-22", "ЭК-23", "ЭК-31", "ЭК-32", "ЭК-33",
+                "Ю-11", "Ю-12", "Ю-13", "Ю-21", "Ю-22", "Ю-23", "Ю-31", "Ю-32", "Ю-33"
+            };
+
+            allGroups = testGroups.ToList();
+            ApplySearchFilter();
+        }
+
+        private Button CreateGroupButton(string groupName)
+        {
+            var button = new Button
+            {
+                Text = groupName,
+                Size = new Size(150, 60),
+                Margin = new Padding(15),
+                Tag = groupName,
+                BackColor = Color.FromArgb(52, 152, 219), // Единый синий цвет для всех групп
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
+
+            button.FlatAppearance.BorderSize = 0;
+            button.FlatAppearance.MouseOverBackColor = Color.FromArgb(41, 128, 185);
+            button.FlatAppearance.MouseDownBackColor = Color.FromArgb(32, 102, 148);
+
+            button.Click += (s, e) => {
+                // Сбрасываем цвет всех кнопок
+                foreach (Control control in flowPanel.Controls)
+                {
+                    if (control is Button btn)
+                    {
+                        btn.BackColor = Color.FromArgb(52, 152, 219);
+                    }
+                }
+                // Выделяем активную кнопку
+                button.BackColor = Color.FromArgb(231, 76, 60);
+
+                // Показываем статус загрузки
+                statusLabel.Text = $"Загрузка расписания для группы {groupName}...";
+
+                // Загружаем расписание без сообщений
+                LoadGroupScheduleSilent(groupName);
+            };
+
+            return button;
+        }
+
+        private void LoadGroupScheduleSilent(string groupName)
+        {
+            try
+            {
+                DataTable scheduleData = GetGroupSchedule(groupName);
+
+                if (scheduleData == null || scheduleData.Rows.Count == 0)
+                {
+                    statusLabel.Text = $"Для группы {groupName} не найдено занятий";
+                    return;
+                }
+
+                statusLabel.Text = $"Загружено {scheduleData.Rows.Count} занятий для группы {groupName}";
+
+                // Открываем форму расписания
+                StudentsScheduleForm scheduleForm = new StudentsScheduleForm(groupName, scheduleData);
+                scheduleForm.Show();
+            }
+            catch (Exception ex)
+            {
+                statusLabel.Text = $"Ошибка загрузки расписания: {ex.Message}";
+            }
+        }
+
+        private DataTable GetGroupSchedule(string groupName)
+        {
+            DataTable resultTable = new DataTable();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Все таблицы расписания
+                    string[] scheduleTables = {
+                        "РасписаниеЗанятийИ11", "РасписаниеЗанятийИ12", "РасписаниеЗанятийИ13",
+                        "РасписаниеЗанятийИ21", "РасписаниеЗанятийИ22", "РасписаниеЗанятийИ23",
+                        "РасписаниеЗанятийИ31", "РасписаниеЗанятийИ32", "РасписаниеЗанятийИ33",
+                        "РасписаниеЗанятийКС11", "РасписаниеЗанятийКС12", "РасписаниеЗанятийКС13",
+                        "РасписаниеЗанятийКС21", "РасписаниеЗанятийКС22", "РасписаниеЗанятийКС23",
+                        "РасписаниеЗанятийКС31", "РасписаниеЗанятийКС32", "РасписаниеЗанятийКС33",
+                        "РасписаниеЗанятийП11", "РасписаниеЗанятийП12", "РасписаниеЗанятийП13",
+                        "РасписаниеЗанятийП21", "РасписаниеЗанятийП22", "РасписаниеЗанятийП23",
+                        "РасписаниеЗанятийП31", "РасписаниеЗанятийП32", "РасписаниеЗанятийП33",
+                        "РасписаниеЗанятийЭК11", "РасписаниеЗанятийЭК12", "РасписаниеЗанятийЭК13",
+                        "РасписаниеЗанятийЭК21", "РасписаниеЗанятийЭК22", "РасписаниеЗанятийЭК23",
+                        "РасписаниеЗанятийЭК31", "РасписаниеЗанятийЭК32", "РасписаниеЗанятийЭК33",
+                        "РасписаниеЗанятийЮ11", "РасписаниеЗанятийЮ12", "РасписаниеЗанятийЮ13",
+                        "РасписаниеЗанятийЮ21", "РасписаниеЗанятийЮ22", "РасписаниеЗанятийЮ23",
+                        "РасписаниеЗанятийЮ31", "РасписаниеЗанятийЮ32", "РасписаниеЗанятийЮ33"
+                    };
+
+                    bool firstTable = true;
+
+                    foreach (string tableName in scheduleTables)
+                    {
+                        try
+                        {
+                            string query = $@"
+                                SELECT Дисциплина, ТипЗанятия, Группа, Преподаватель, Кабинет, Время
+                                FROM {tableName} 
+                                WHERE Группа = @GroupName";
+
+                            using (SqlCommand command = new SqlCommand(query, connection))
+                            {
+                                command.Parameters.AddWithValue("@GroupName", groupName);
+
+                                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                                {
+                                    DataTable tempTable = new DataTable();
+                                    adapter.Fill(tempTable);
+
+                                    if (firstTable && tempTable.Columns.Count > 0)
+                                    {
+                                        resultTable = tempTable.Clone();
+                                        firstTable = false;
+                                    }
+
+                                    foreach (DataRow row in tempTable.Rows)
+                                    {
+                                        resultTable.ImportRow(row);
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+                // Сортируем по времени
+                if (resultTable.Rows.Count > 0)
+                {
+                    resultTable.DefaultView.Sort = "Время ASC";
+                }
+
+                return resultTable;
+            }
+            catch
+            {
+                return new DataTable();
+            }
+        }
+    }
+}
