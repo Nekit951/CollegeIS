@@ -1,0 +1,525 @@
+using System;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CollegeIS
+{
+    public partial class GradesForm : Form
+    {
+        private string groupName;
+        private DataGridView dataGridView;
+        private TextBox searchBox;
+        private Button btnExport;
+        private Button btnClose;
+        private Label titleLabel;
+        private Button btnResetFilters;
+        private Label statusLabel;
+        private ComboBox cmbDisciplineFilter;
+        private ComboBox cmbStudentFilter;
+
+        public class Grade
+        {
+            public string StudentName { get; set; }
+            public string Discipline { get; set; }
+            public string Teacher { get; set; }
+            public string GradeValue { get; set; }
+            public string Date { get; set; }
+            public string ControlType { get; set; }
+        }
+
+        public GradesForm(string groupName)
+        {
+            if (string.IsNullOrEmpty(groupName))
+                throw new ArgumentException("Название группы не может быть пустым");
+
+            this.groupName = groupName;
+            InitializeForm();
+        }
+
+        private void InitializeForm()
+        {
+            // Базовая настройка формы
+            this.Text = $"Оценки группы: {groupName}";
+            this.Size = new Size(1200, 600);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.FromArgb(240, 245, 249);
+            this.MinimumSize = new Size(1000, 500);
+            this.Padding = new Padding(10);
+
+            CreateControls();
+            SetupLayout();
+            LoadGradesData();
+        }
+
+        private void CreateControls()
+        {
+            // Заголовок
+            titleLabel = new Label
+            {
+                Text = $"Оценки группы: {groupName}",
+                Font = new Font("Segoe UI", 16F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                AutoSize = true
+            };
+
+            // Поле поиска
+            searchBox = new TextBox
+            {
+                Text = "Поиск по студенту...",
+                Size = new Size(200, 25),
+                Font = new Font("Segoe UI", 9F),
+                BackColor = Color.White,
+                ForeColor = Color.Gray
+            };
+
+            searchBox.Enter += (s, e) =>
+            {
+                if (searchBox.Text == "Поиск по студенту...")
+                {
+                    searchBox.Text = "";
+                    searchBox.ForeColor = Color.FromArgb(51, 51, 51);
+                }
+            };
+
+            searchBox.Leave += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(searchBox.Text))
+                {
+                    searchBox.Text = "Поиск по студенту...";
+                    searchBox.ForeColor = Color.Gray;
+                }
+            };
+
+            searchBox.TextChanged += (s, e) => ApplyFilters();
+
+            // Фильтр по дисциплине
+            cmbDisciplineFilter = new ComboBox
+            {
+                Size = new Size(150, 25),
+                Font = new Font("Segoe UI", 9F),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            cmbDisciplineFilter.SelectedIndexChanged += (s, e) => ApplyFilters();
+
+            // Фильтр по студенту
+            cmbStudentFilter = new ComboBox
+            {
+                Size = new Size(150, 25),
+                Font = new Font("Segoe UI", 9F),
+                DropDownStyle = ComboBoxStyle.DropDownList
+            };
+            cmbStudentFilter.SelectedIndexChanged += (s, e) => ApplyFilters();
+
+            // Кнопка сброса фильтров
+            btnResetFilters = new Button
+            {
+                Text = "Сбросить",
+                Size = new Size(80, 25),
+                BackColor = Color.FromArgb(220, 220, 220),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F),
+                Cursor = Cursors.Hand
+            };
+            btnResetFilters.Click += (s, e) =>
+            {
+                searchBox.Text = "Поиск по студенту...";
+                searchBox.ForeColor = Color.Gray;
+                cmbDisciplineFilter.SelectedIndex = -1;
+                cmbStudentFilter.SelectedIndex = -1;
+                ApplyFilters();
+            };
+
+            // DataGridView
+            dataGridView = new DataGridView
+            {
+                BackgroundColor = Color.White,
+                BorderStyle = BorderStyle.None,
+                ReadOnly = true,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                RowHeadersVisible = false,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                Font = new Font("Segoe UI", 9F),
+                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(250, 250, 250)
+                },
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Padding = new Padding(5),
+                    Alignment = DataGridViewContentAlignment.MiddleLeft
+                },
+                ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+                {
+                    BackColor = Color.FromArgb(70, 130, 180),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                }
+            };
+
+            // Настраиваем столбцы согласно вашей структуре таблицы
+            dataGridView.Columns.Add("StudentName", "Студент");
+            dataGridView.Columns.Add("Discipline", "Дисциплина");
+            dataGridView.Columns.Add("Teacher", "Преподаватель");
+            dataGridView.Columns.Add("GradeValue", "Оценка");
+            dataGridView.Columns.Add("Date", "Дата");
+            dataGridView.Columns.Add("ControlType", "Тип контроля");
+
+            // Настраиваем ширину столбцов
+            dataGridView.Columns["StudentName"].Width = 150;
+            dataGridView.Columns["Discipline"].Width = 150;
+            dataGridView.Columns["Teacher"].Width = 150;
+            dataGridView.Columns["GradeValue"].Width = 80;
+            dataGridView.Columns["Date"].Width = 100;
+            dataGridView.Columns["ControlType"].Width = 120;
+
+            // Статус
+            statusLabel = new Label
+            {
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(100, 100, 100),
+                AutoSize = true,
+                Text = "Загрузка данных..."
+            };
+
+            // Кнопка экспорта
+            btnExport = new Button
+            {
+                Text = "Экспорт CSV",
+                Size = new Size(100, 30),
+                BackColor = Color.FromArgb(46, 204, 113),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F),
+                Cursor = Cursors.Hand
+            };
+            btnExport.Click += ExportToCsv;
+
+            // Кнопка закрытия
+            btnClose = new Button
+            {
+                Text = "Закрыть",
+                Size = new Size(80, 30),
+                BackColor = Color.FromArgb(231, 76, 60),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F),
+                Cursor = Cursors.Hand
+            };
+            btnClose.Click += (s, e) => this.Close();
+        }
+
+        private void SetupLayout()
+        {
+            // Используем TableLayout для надежного размещения
+            TableLayoutPanel mainLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount = 4,
+                Padding = new Padding(0),
+                Margin = new Padding(0)
+            };
+
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            mainLayout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            // Панель заголовка
+            Panel headerPanel = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+            headerPanel.Controls.Add(titleLabel);
+            titleLabel.Location = new Point(0, 10);
+
+            // Панель фильтров
+            Panel filterPanel = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+
+            searchBox.Location = new Point(0, 8);
+            cmbDisciplineFilter.Location = new Point(searchBox.Right + 10, 8);
+            cmbStudentFilter.Location = new Point(cmbDisciplineFilter.Right + 10, 8);
+            btnResetFilters.Location = new Point(cmbStudentFilter.Right + 10, 8);
+
+            // Добавляем подписи
+            Label lblDiscipline = new Label
+            {
+                Text = "Дисциплина:",
+                Location = new Point(searchBox.Right + 10, 10),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8F)
+            };
+
+            Label lblStudent = new Label
+            {
+                Text = "Студент:",
+                Location = new Point(cmbDisciplineFilter.Right + 10, 10),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8F)
+            };
+
+            // Сдвигаем комбобоксы после подписей
+            cmbDisciplineFilter.Location = new Point(lblDiscipline.Right + 5, 8);
+            cmbStudentFilter.Location = new Point(lblStudent.Right + 5, 8);
+            btnResetFilters.Location = new Point(cmbStudentFilter.Right + 10, 8);
+
+            filterPanel.Controls.AddRange(new Control[] {
+                searchBox,
+                lblDiscipline, cmbDisciplineFilter,
+                lblStudent, cmbStudentFilter,
+                btnResetFilters
+            });
+
+            // DataGridView
+            dataGridView.Dock = DockStyle.Fill;
+
+            // Панель статуса и кнопок
+            Panel footerPanel = new Panel
+            {
+                Height = 40,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+
+            statusLabel.Location = new Point(0, 12);
+            btnExport.Location = new Point(footerPanel.Width - 180, 5);
+            btnClose.Location = new Point(footerPanel.Width - 90, 5);
+
+            footerPanel.Controls.AddRange(new Control[] { statusLabel, btnExport, btnClose });
+
+            // Добавляем все на главную панель
+            mainLayout.Controls.Add(headerPanel, 0, 0);
+            mainLayout.Controls.Add(filterPanel, 0, 1);
+            mainLayout.Controls.Add(dataGridView, 0, 2);
+            mainLayout.Controls.Add(footerPanel, 0, 3);
+
+            this.Controls.Add(mainLayout);
+        }
+
+        private void LoadGradesData()
+        {
+            try
+            {
+                List<Grade> grades = GetGradesFromDatabase();
+
+                dataGridView.Rows.Clear();
+
+                if (grades.Count == 0)
+                {
+                    statusLabel.Text = "В базе данных нет оценок для этой группы";
+                    return;
+                }
+
+                statusLabel.Text = $"Загружено оценок: {grades.Count}";
+
+                // Заполняем таблицу
+                foreach (Grade grade in grades)
+                {
+                    dataGridView.Rows.Add(
+                        grade.StudentName,
+                        grade.Discipline,
+                        grade.Teacher,
+                        grade.GradeValue,
+                        grade.Date,
+                        grade.ControlType
+                    );
+                }
+
+                // Заполняем фильтры
+                FillFilters(grades);
+            }
+            catch (Exception ex)
+            {
+                statusLabel.Text = $"Ошибка загрузки данных: {ex.Message}";
+            }
+        }
+
+        private void FillFilters(List<Grade> grades)
+        {
+            // Заполняем фильтр дисциплин
+            var disciplines = grades.Select(g => g.Discipline).Distinct().OrderBy(d => d).ToList();
+            cmbDisciplineFilter.Items.Clear();
+            cmbDisciplineFilter.Items.Add("Все дисциплины");
+            foreach (var discipline in disciplines)
+            {
+                cmbDisciplineFilter.Items.Add(discipline);
+            }
+
+            // Заполняем фильтр студентов
+            var students = grades.Select(g => g.StudentName).Distinct().OrderBy(s => s).ToList();
+            cmbStudentFilter.Items.Clear();
+            cmbStudentFilter.Items.Add("Все студенты");
+            foreach (var student in students)
+            {
+                cmbStudentFilter.Items.Add(student);
+            }
+        }
+
+        private List<Grade> GetGradesFromDatabase()
+        {
+            List<Grade> grades = new List<Grade>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection("Data Source=WIN-C4UM3B4G5HP;Initial Catalog=College;Integrated Security=True"))
+                {
+                    connection.Open();
+
+                    // Определяем таблицу по названию группы
+                    string tableName = GetTableNameByGroup(groupName);
+
+                    string query = $@"
+                        SELECT 
+                            ИмяСтудента,
+                            ISNULL(Дисциплина, 'Не указана') as Дисциплина,
+                            ISNULL(Преподаватель, 'Не указан') as Преподаватель,
+                            ISNULL(Оценка, 'Не указана') as Оценка,
+                            ISNULL(CONVERT(varchar, Дата, 104), 'Не указана') as Дата,
+                            ISNULL(ТипКонтроля, 'Не указан') as ТипКонтроля
+                        FROM {tableName} 
+                        ORDER BY ИмяСтудента, Дисциплина, Дата";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Grade grade = new Grade
+                            {
+                                StudentName = reader["ИмяСтудента"].ToString().Trim(),
+                                Discipline = reader["Дисциплина"].ToString().Trim(),
+                                Teacher = reader["Преподаватель"].ToString().Trim(),
+                                GradeValue = reader["Оценка"].ToString().Trim(),
+                                Date = reader["Дата"].ToString().Trim(),
+                                ControlType = reader["ТипКонтроля"].ToString().Trim()
+                            };
+
+                            if (!string.IsNullOrEmpty(grade.StudentName) && grade.StudentName != " ")
+                            {
+                                grades.Add(grade);
+                            }
+                        }
+                    }
+                }
+
+                return grades;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при загрузке оценок: {ex.Message}");
+            }
+        }
+
+        private string GetTableNameByGroup(string groupName)
+        {
+            // Определяем таблицу по названию группы
+            string prefix = groupName.Split('-')[0]; // Берем префикс (И, КС, П и т.д.)
+            string number = groupName.Split('-')[1]; // Берем номер
+
+            return $"Оценки{prefix}{number}";
+        }
+
+        private void ApplyFilters()
+        {
+            string searchText = searchBox.Text.ToLower();
+            string selectedDiscipline = cmbDisciplineFilter.SelectedItem?.ToString();
+            string selectedStudent = cmbStudentFilter.SelectedItem?.ToString();
+
+            int visibleCount = 0;
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool visible = true;
+
+                // Фильтр по поиску
+                if (!string.IsNullOrEmpty(searchText) && searchText != "поиск по студенту...")
+                {
+                    visible = row.Cells["StudentName"].Value?.ToString().ToLower().Contains(searchText) == true;
+                }
+
+                // Фильтр по дисциплине
+                if (visible && selectedDiscipline != null && selectedDiscipline != "Все дисциплины")
+                {
+                    visible = row.Cells["Discipline"].Value?.ToString() == selectedDiscipline;
+                }
+
+                // Фильтр по студенту
+                if (visible && selectedStudent != null && selectedStudent != "Все студенты")
+                {
+                    visible = row.Cells["StudentName"].Value?.ToString() == selectedStudent;
+                }
+
+                row.Visible = visible;
+                if (visible) visibleCount++;
+            }
+
+            statusLabel.Text = $"Показано: {visibleCount} из {dataGridView.Rows.Count} оценок";
+        }
+
+        private void ExportToCsv(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveDialog = new SaveFileDialog())
+                {
+                    saveDialog.Filter = "CSV files (*.csv)|*.csv";
+                    saveDialog.FileName = $"Оценки_{groupName}_{DateTime.Now:yyyyMMdd}.csv";
+
+                    if (saveDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (System.IO.StreamWriter writer = new System.IO.StreamWriter(saveDialog.FileName, false, System.Text.Encoding.UTF8))
+                        {
+                            writer.WriteLine("Студент;Дисциплина;Преподаватель;Оценка;Дата;Тип контроля");
+
+                            foreach (DataGridViewRow row in dataGridView.Rows)
+                            {
+                                if (!row.IsNewRow && row.Visible)
+                                {
+                                    writer.WriteLine(
+                                        $"{EscapeCsv(row.Cells["StudentName"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["Discipline"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["Teacher"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["GradeValue"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["Date"].Value?.ToString())};" +
+                                        $"{EscapeCsv(row.Cells["ControlType"].Value?.ToString())}"
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при экспорте: {ex.Message}", "Ошибка",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string EscapeCsv(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return "";
+            if (value.Contains(";") || value.Contains("\"") || value.Contains("\n"))
+            {
+                return $"\"{value.Replace("\"", "\"\"")}\"";
+            }
+            return value;
+        }
+    }
+}
